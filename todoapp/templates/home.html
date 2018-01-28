@@ -5,17 +5,29 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
 <div django-app="TaskManager">   
     <form action="" method="post">
-     {% csrf_token %} <!-- csrf token for basic security -->
+     {% csrf_token %} 
         <div class="inputContainer">
             <input type="text" id="category" class="taskName" placeholder="Enter Category" name="category" required>
             <label for="category">Category</label>
         </div>
         <div class="row">
-            <button class="taskAdd" name="taskCategory" type="submit"><i class="fa fa-plus icon"></i>Add Category(List)</button>
+            <button class="btn btn-success" name="categoryAdd" type="submit"></i>Add Category</button>
         </div>       
-    </form>     
+    </form> 
+    <form action="" method="post"> 
+     {% csrf_token %}    
+    <ul  class="taskList"> 
+    {% for category in categories %} 
+        <li class="taskItem">
+            <input type="hidden"  name="categoryid" id="{{ category.id }}" value="{{ category.id }}">
+            <label for="{{ category.id }}"><span class="complete-">{{ category.name }}</span></label>
+            <button class="btn btn-danger" style="padding: 2px;height: 25px;" name="categoryDelete" type="submit">Delete</button> 
+        </li>
+    {% endfor %}  
+    </ul>
+    </form>
     <form action="" method="post">
-    {% csrf_token %} <!-- csrf token for basic security -->
+    {% csrf_token %} 
         <div class="inputContainer">
             <input type="text" id="description" class="taskName" placeholder="What do you need to do?" name="description" required>
             <label for="description">Description</label>
@@ -35,12 +47,12 @@
             <label for="dueDate">Due Date</label>
         </div>
         <div class="row"> 
-            <button class="taskAdd" name="taskAdd" type="submit"><i class="fa fa-plus icon"></i>Add task</button>
-            <button class="taskDelete" name="taskDelete" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Delete Tasks</button>
+            <button class="taskAdd" name="taskAdd" type="submit">Add Task</button>
+            <button class="taskDelete" name="taskDelete" formnovalidate="" type="submit" onclick="$('input#sublist').click();">Delete Task</button>   
         </div>
     
         <ul  class="taskList">
-        {% for todo in todos %} <!-- django template lang - for loop -->
+        {% for todo in todos %} 
             <li class="taskItem">
                 <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
                 <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
@@ -48,7 +60,7 @@
                 <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
             </li>
         {% endfor %}
-        </ul><!-- taskList -->
+        </ul> 
     </form> 
 </div>
 {% endblock %}

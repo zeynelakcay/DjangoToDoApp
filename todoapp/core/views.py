@@ -10,15 +10,22 @@ from django.conf import settings
 def home(request):
 
 	todos = TodoList.objects.filter(user_id = request.user.id) 
-	categories = Category.objects.all() 
+	categories = Category.objects.filter(user_id = request.user.id) 
 
 	if request.method == "POST": 
-		if "taskCategory" in request.POST: 
+		if "categoryAdd" in request.POST: 
 			user_id = request.user.id 
 			category = request.POST["category"]  
 			Todo = Category(user_id = user_id,name=category)
 			Todo.save() 
 			return redirect("/") 
+
+		if "categoryDelete" in request.POST: 
+			user_id = request.user.id 
+			categoryid = request.POST["categoryid"]  
+			category_item = Category.objects.get(id=int(categoryid)) 
+			category_item.delete() 
+			return redirect("/")       
 
 		if "taskAdd" in request.POST: 
 			user_id = request.user.id 
