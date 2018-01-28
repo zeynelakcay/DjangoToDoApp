@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>ToDo App</title>. 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		{% load static %}
+	 <link rel="stylesheet" type="text/css" href="{% static 'css/narrow-jumbotron.css' %}">   
+	</head>
+	<body>
+		<div class="container">
+			<header class="header clearfix">
+				<nav>
+					<ul class="nav nav-pills float-right">
+						<li class="nav-item">
+							{% if user.is_authenticated %}
+								Welcome, {{ user.username }} <a class="btn btn-sm btn-outline-secondary" href="{% url 'logout' %}">Logout</a>
+							{% else %}
+								<a class="btn btn-sm btn-outline-secondary" href="{% url 'login' %}">Login</a>  <a class="btn btn-sm btn-outline-secondary" href="{% url 'signup' %}">Sign up</a>
+							{% endif %} 
+						</li> 
+					</ul>    
+				</nav>
+				<h3 class="text-muted">ToDo App</h3>
+			</header>
+			<main role="main">
+			{% block content %}
+			
+			{% endblock %}   
+			</main>
+      <footer class="footer" style="margin-top:10px">
+        <p>Bize Her Yer Trabzon &copy; Zeynel Akçay 2018</p>
+      </footer>
+		</div>  
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</body>
+</html>
