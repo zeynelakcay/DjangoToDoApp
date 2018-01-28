@@ -3,7 +3,17 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
-<div django-app="TaskManager">        
+<div django-app="TaskManager">   
+    <form action="" method="post">
+     {% csrf_token %} <!-- csrf token for basic security -->
+        <div class="inputContainer">
+            <input type="text" id="category" class="taskName" placeholder="Enter Category" name="category" required>
+            <label for="category">Category</label>
+        </div>
+        <div class="row">
+            <button class="taskAdd" name="taskCategory" type="submit"><i class="fa fa-plus icon"></i>Add Category(List)</button>
+        </div>       
+    </form>     
     <form action="" method="post">
     {% csrf_token %} <!-- csrf token for basic security -->
         <div class="inputContainer">
@@ -24,7 +34,7 @@
             <input type="date" id="dueDate" class="taskDate" name="date">
             <label for="dueDate">Due Date</label>
         </div>
-        <div class="row">
+        <div class="row"> 
             <button class="taskAdd" name="taskAdd" type="submit"><i class="fa fa-plus icon"></i>Add task</button>
             <button class="taskDelete" name="taskDelete" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Delete Tasks</button>
         </div>

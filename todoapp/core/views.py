@@ -13,6 +13,13 @@ def home(request):
 	categories = Category.objects.all() 
 
 	if request.method == "POST": 
+		if "taskCategory" in request.POST: 
+			user_id = request.user.id 
+			category = request.POST["category"]  
+			Todo = Category(user_id = user_id,name=category)
+			Todo.save() 
+			return redirect("/") 
+
 		if "taskAdd" in request.POST: 
 			user_id = request.user.id 
 			title = request.POST["description"] 
